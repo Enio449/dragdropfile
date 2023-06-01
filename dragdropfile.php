@@ -1,6 +1,6 @@
 <?php
 /**
- * DragDrop File ver: 0.1
+ * DragDrop File ver: 0.2
  *
  * Roundcube plugin for drag and drop attachment files to local host
  *
@@ -29,19 +29,8 @@ class dragdropfile extends rcube_plugin
 	
 	
 	public $hooks = [
-//        'message_load' => 'messageLoadHook',
         'template_object_messageattachments' => 'templateObjectMessageattachmentsHook',
     ];
-
-
-    /********************************************
-     * Информация о вложении.
-     *
-     * key: attachment ID, value: attachment object
-     *
-     * @var array<string,Attachment>
-     ********************************************/
-//    private $attachments = [];
 
 
 	/********************************************
@@ -57,44 +46,6 @@ class dragdropfile extends rcube_plugin
         }
     }
 	
-	
-	/********************************************
-     * Проверка вложений в письме.
-    ********************************************/
-/*    public function messageLoadHook(array $p): array
-    {
-        // @var rcmail_output_html
-        $output = $this->rcmail->output;
-
-        $uid = rcube_utils::get_input_value('_uid', rcube_utils::INPUT_GPC) ?? '';
-
-        foreach ((array) $p['object']->attachments as $rcAttachment) {
-            // Roundcube определяет mimetype не аккуратно
-            // (к примеру "rtf" файлы определяет как "application/msword" вместо "application/rtf"),
-            // поэтому по-возможности используем определение mimetype от Apache.
-            $mimeType = MimeHelper::getMimeTypeByFilename($rcAttachment->filename) ?? $rcAttachment->mimetype;
-
-            $attachment = Attachment::fromArray([]);
-            $attachment->setId($rcAttachment->mime_id);
-            $attachment->setUid($uid);
-            $attachment->setFilename($rcAttachment->filename);
-            $attachment->setMimeType($mimeType);
-            $attachment->setSize($rcAttachment->size);
-            $attachment->setIsSupported(
-                PluginConst::VIEWER_NOT_FOUND !== $this->getAttachmentSuggestedViewerId(
-                    $attachment,
-                    $this->getViewerOrderArray()
-                )
-            );
-
-            $this->attachments[$attachment->getId()] = $attachment;
-        }
-
-        $output->set_env("{$this->ID}.attachments", $this->attachments);
-
-        return $p;
-    }
-*/	
 	
 	/********************************************
      *  Добавление кнопку "Перетащить все" в область вложений письма.
@@ -124,12 +75,11 @@ class dragdropfile extends rcube_plugin
                         'href' => '#',
                         'class' => 'dragdropfile-link',
                         'title' => $this->gettext('drag_all_files'),
-                        // 'onclick' => "cloudview_openAttachment({$attachmentJson})",
                     ],
                     ''
                 );
                 
-                return $ul . '<li dragdropfile>' . $button . '</li>' . '</ul>';
+                return $ul . '<li dragdropfile>' . $button . '</li>' . $inside_ul . '</ul>';
             }, $p['content']
         );
     }
