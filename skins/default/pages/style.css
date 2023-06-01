@@ -1,0 +1,19 @@
+.attachmentslist li[dragdropfile] a.dragdropfile-link {
+  padding-right: 45px
+}
+.attachmentslist li[dragdropfile] a.dragdropfile-link {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  padding: 0;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images//files.png');
+  background-repeat: no-repeat;
+  background-size: contain
+}
+.attachmentslist li[dragdropfile] a.dragdropfile-link:hover {
+  background-image: url('../images//files-hover.png')
+} 

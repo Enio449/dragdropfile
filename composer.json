@@ -1,0 +1,20 @@
+{
+  "name": "Enio449/dragdropfile",
+  "description": "Roundcube plugin for drag and drop attachment files to local host",
+  "keywords": ["dragdrop","attachment"],
+  "homepage": "https://github.com/Enio449/dragdropfile",
+  "license": "GPL-3.0",
+  "type": "roundcube-plugin",
+  "version": "0.1",
+  "authors": [
+    {
+      "name": "Michael Ladanov",
+      "email": "enio449@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "roundcube/plugin-installer": ">=0.1.2"
+  }
+}
