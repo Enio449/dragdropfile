@@ -1,6 +1,6 @@
 <?php
 /**
- * DragDrop File ver: 0.2
+ * DragDrop File ver: 1.0
  *
  * Roundcube plugin for drag and drop attachment files to local host
  *
@@ -27,60 +27,41 @@ class dragdropfile extends rcube_plugin
     public $task = 'mail';
     public $noajax = true;
 	
-	
-	public $hooks = [
-        'template_object_messageattachments' => 'templateObjectMessageattachmentsHook',
-    ];
-
+	private $rcube;
+		
 
 	/********************************************
      *  Инициализация плагина.					
     ********************************************/
-    function init()
+    public function init(): void
     {
-        parent::init();
+		$this->rcube = rcube::get_instance();
 
-        if ($this->rcmail->task === 'mail') {
+        if ($this->rcube->task == 'mail') {
             $this->include_stylesheet("skins/default/pages/style.css");
 			$this->include_script('dragdropfile.js');
+			$this->add_texts('localization', true);
+			$this->add_hook('template_object_messageattachments', array($this, 'add_drag_button'));
         }
     }
 	
-	
-	/********************************************
-     *  Добавление кнопку "Перетащить все" в область вложений письма.
-    ********************************************/
-    public function templateObjectMessageattachmentsHook(array $p): array
-    {
-		$this->add_drag_button($p);
 
-        return $p;
-    }
-	
-	
 	/********************************************
-     *  Добавление кнопку "Перетащить все" в область вложений письма.
+     *  Добавление кнопку "Перетащить все" в начало области вложений письма.
     ********************************************/
-	private function add_drag_button(array &$p): void
+	function add_drag_button($p)
     {
-        $p['content'] = preg_replace_callback(
-            '/(<ul.*?id="attachment-list".*?>)(.*?)<\/ul>/uS',
-            function (array $matches): string {
-                $block_ul = $matches[0];		// Весь фрагмент HTML-кода.
-				$ul = $matches[1];				// Открывающий тэг UL.
-				$inside_ul = $matches[2];		// Код внутри UL.
-                
-                $button = html::a(
-                    [
+		$button = html::a(
+					[
                         'href' => '#',
                         'class' => 'dragdropfile-link',
                         'title' => $this->gettext('drag_all_files'),
                     ],
                     ''
                 );
-                
-                return $ul . '<li dragdropfile>' . $button . '</li>' . $inside_ul . '</ul>';
-            }, $p['content']
-        );
-    }
+		
+		$p['content'] = '<span class="dragdropfile">' .  $button . '</span>' . $p['content'];
+		
+		return $p;
+    }	
 }
