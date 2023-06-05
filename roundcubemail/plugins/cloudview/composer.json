@@ -1,0 +1,38 @@
+{
+    "name": "jfcherng-roundcube/cloudview",
+    "description": "A Roundcube plugin which lets you view documents with cloud viewer.",
+    "type": "roundcube-plugin",
+    "license": "MIT",
+    "homepage": "https://github.com/jfcherng-roundcube/plugin-cloudview",
+    "authors": [
+        {
+            "name": "Jack Cherng",
+            "email": "jfcherng@gmail.com"
+        },
+        {
+            "name": "Andrian Galkin",
+            "email": "galandrix@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "roundcube/plugin-installer": "~0.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3"
+    },
+    "config": {
+        "platform": {
+            "php": "7.1.3"
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "fix": [
+            "php-cs-fixer fix --verbose"
+        ],
+        "lint": [
+            "php-cs-fixer fix --verbose --dry-run --stop-on-violation"
+        ]
+    }
+}

@@ -1,4 +1,4 @@
-span.dragdropfile a.dragdropfile-link {
+span#dragdropfile a#dragdropfile-link {
   cursor: pointer;
   padding-right: 45px;
   display: inline-block;
@@ -8,6 +8,6 @@ span.dragdropfile a.dragdropfile-link {
   background-repeat: no-repeat;
   background-size: contain
 }
-span.dragdropfile a.dragdropfile-link:hover {
+span#dragdropfile a#dragdropfile-link:hover {
   background-image: url('../images//files-hover.png')
 } 

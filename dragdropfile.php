@@ -1,6 +1,6 @@
 <?php
 /**
- * DragDrop File ver: 1.0
+ * DragDrop File ver: 1.1
  *
  * Roundcube plugin for drag and drop attachment files to local host
  *
@@ -41,7 +41,7 @@ class dragdropfile extends rcube_plugin
             $this->include_stylesheet("skins/default/pages/style.css");
 			$this->include_script('dragdropfile.js');
 			$this->add_texts('localization', true);
-			$this->add_hook('template_object_messageattachments', array($this, 'add_drag_button'));
+//			$this->add_hook('template_object_messageattachments', array($this, 'add_drag_button'));
         }
     }
 	
@@ -54,13 +54,13 @@ class dragdropfile extends rcube_plugin
 		$button = html::a(
 					[
                         'href' => '#',
-                        'class' => 'dragdropfile-link',
+                        'id' => 'dragdropfile-link',
                         'title' => $this->gettext('drag_all_files'),
                     ],
                     ''
                 );
 		
-		$p['content'] = '<span class="dragdropfile">' .  $button . '</span>' . $p['content'];
+		$p['content'] = '<span id="dragdropfile">' .  $button . '</span>' . $p['content'];
 		
 		return $p;
     }	

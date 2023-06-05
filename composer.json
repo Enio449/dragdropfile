@@ -5,7 +5,7 @@
   "homepage": "https://github.com/Enio449/dragdropfile",
   "license": "GPL-3.0",
   "type": "roundcube-plugin",
-  "version": "0.1",
+  "version": "1.1",
   "authors": [
     {
       "name": "Michael Ladanov",

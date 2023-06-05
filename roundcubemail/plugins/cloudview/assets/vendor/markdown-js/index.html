@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Loading...</title>
+    <script src="../jquery.min.js"></script>
+  </head>
+  <body>
+    <xmp theme="united" style="display: none;"></xmp>
+
+    <style type="text/css">
+      .gohome-link,
+      .search-link,
+      .history-link,
+      .edit-link {
+        display: none !important;
+      }
+    </style>
+    <script>
+      function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName;
+
+        for (var i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+          }
+        }
+      }
+
+      var url = getUrlParameter('url');
+      var theme = getUrlParameter('theme');
+
+      if (theme) {
+        $('xmp').attr('theme', theme);
+      }
+
+      var errorHandler = function () {
+        alert('error loading ' + url);
+      };
+
+      var jqXHR = $.get(/*'//cors-anywhere.herokuapp.com/' + */ url, function (response) {
+        $('xmp').text(response);
+
+        if (0 === response.indexOf('<!')) {
+          return errorHandler();
+        }
+
+        var title;
+        var p = url.lastIndexOf('/');
+
+        if (p > 0) {
+          title = url.substring(p + 1);
+        }
+
+        p = url.indexOf('?');
+        if (p > 0) {
+          title = url.substring(0, p);
+        }
+
+        $('title').html(title);
+        $('head').append('<script src="assets/strapdown.min.js"><\/script>');
+      });
+      jqXHR.fail(errorHandler);
+    </script>
+  </body>
+</html>
