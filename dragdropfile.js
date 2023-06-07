@@ -2,8 +2,9 @@ $(window).ready(function() {
 	let elements = document.getElementsByClassName("filename"),
 		elements_array = Array.from(elements);
 	
-	$(".filename").prop('title', rcmail.gettext('drag_all_files', 'dragdropfile'));
+//	$(".filename").prop('title', rcmail.gettext('drag_all_files', 'dragdropfile'));
 	elements_array.forEach(item => item.addEventListener("dragstart", my_on_drop_link, false));	// Обработчик события для каждого файла вложения
+//	elements_array.forEach(item => item.title += '\n' + rcmail.gettext('drag_all_files', 'dragdropfile'));
 }); 
 
 
